@@ -24,4 +24,36 @@ S.T.
     SELECT -> write read FOR UPDATE;
 COMMIT -> UNLOCK;
 --> 修改期間資料不會被讀取，被讀取的是最新的完成資料(commit過的)
+--> FOR UPDATE : 等待另一邊更新完成
 
+// START TRANSITION
+START TRANSITION
+    |
+    |
+    |
+COMMIT/ROLLBACK(寫入/捨棄)
+
+level repeatable read;
+--> 外面發生什麼事都不管
+
+// 備份
+mysqldump -uroot db_name > (希望備份的檔案位置以及檔名)
+
+mysqldump -uroot --databases db_name > (希望備份的檔案位置以及檔名)
+
+// 匯出資料表
+select categoryId, categoryName 
+  into outfile '檔案位置以及檔名' 
+  lines terminated by '\r\n'
+  from categories;
+
+// 匯入資料表
+load data infile '檔案位置以及檔名'
+  replace
+  into table categories
+  LINES TERMINATED BY '\r\n';
+  -- ignore 2 lines;
+
+--> replace : 重複的覆蓋
+--> ignore : 重複的忽略
+--> ignore int lines : 先跳過幾行再處理
