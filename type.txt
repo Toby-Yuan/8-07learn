@@ -34,3 +34,5 @@ INSERT INTO t7 VALUES ('reading,sport');
 
 --> set 專屬資料找碴
 SELECT * FROM t7 WHERE find_in_set('music',data);
+
+--> one-hot : 讀熱編碼
