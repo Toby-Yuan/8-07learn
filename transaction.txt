@@ -44,8 +44,12 @@ mysqldump -uroot --databases db_name > (希望備份的檔案位置以及檔名)
 // 匯出資料表
 select categoryId, categoryName 
   into outfile '檔案位置以及檔名' 
+  [fields terminated by ',' optionally enclosed by '"']
   lines terminated by '\r\n'
   from categories;
+
+--> fields terminated by ',' optionally enclosed by '"' :
+    檔案匯出時，編號和資料中間會有, 且文字用" "包起來，數字不會
 
 // 匯入資料表
 load data infile '檔案位置以及檔名'
@@ -57,3 +61,5 @@ load data infile '檔案位置以及檔名'
 --> replace : 重複的覆蓋
 --> ignore : 重複的忽略
 --> ignore int lines : 先跳過幾行再處理
+
+point : 匯入時， 要先匯入一個相同結構的暫時資料表
