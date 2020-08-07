@@ -11,3 +11,17 @@ UNLOCK TABLES;
 LOCK TABLE table_name1 read, table_name2 write, ... ;
 
 --> 多個使用者要同時LOCK時，write的權重比較高
+
+// 應用 : 多個使用者購買物品
+S.T.
+    SELECT -> read lock;
+    UPDATE -> write lock;
+COMMIT -> UNLOCK;
+
+lock in share mode ??
+
+S.T.
+    SELECT -> write read FOR UPDATE;
+COMMIT -> UNLOCK;
+--> 修改期間資料不會被讀取，被讀取的是最新的完成資料(commit過的)
+
