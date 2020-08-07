@@ -1,0 +1,13 @@
+// LOCK
+read lock --> 可以讀不可以寫
+write lock --> 不可讀不可寫
+
+// 語法
+LOCK TABLE table_name read;
+UNLOCK TABLES;
+--> UNLOCK 之後會自動執行(依照執行順序)
+
+--> 多個鎖定
+LOCK TABLE table_name1 read, table_name2 write, ... ;
+
+--> 多個使用者要同時LOCK時，write的權重比較高
