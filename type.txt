@@ -1,0 +1,36 @@
+// 資料類型
+// int : 整數
+--> 傳統模式下會四捨五入
+
+// 自動補上
+data int(5) zerofill not null;
+--> 10 => 00010
+
+// char,varchar : 字串
+char在儲存中會是固定長度，不會保留字串結束的空格 -->適合固定長度資料(電話)
+varchar是每個資料字串的長度，會保留字串結束的空格 -->適合不固定長度(地址)
+
+// decimal : 小數點
+data decimal(5,2) not null;
+--> 123.45 : 共5位，小數點後2位
+--> 超過最大值會變成最大值 : 1234.56 => 999.99
+
+// datetime,timestamp : 日期 (XXXX-XX-XX XX:XX:XX)
+datetime : 手動輸入的時間，不正確的日期會進不去(傳統模式之下)
+timestamp : 系統寫入的時間，新增資料時不用輸入
+
+--> 輸入資料時可以輸入 : 
+current_date()表示輸入時的日期
+current_timestamp()表示輸入時的時間
+
+// enum : 列舉，單選，有特定數量的選項(大小寫皆可)
+data enum('Y','N') not null DEFAULT 'Y';
+--> 儲存的其實是數字  第一個=1 第二個=2 ...
+SELECT id , data+0 from t6;
+
+// set : 列舉，多選
+data set('reading','sport','music') not null;
+INSERT INTO t7 VALUES ('reading,sport');
+
+--> set 專屬資料找碴
+SELECT * FROM t7 WHERE find_in_set('music',data);
